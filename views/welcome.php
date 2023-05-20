@@ -24,7 +24,7 @@
                 <span class="fs-6">Acerca de nosotros</span>
             </a>
             <nav class="d-inline-flex mt-2 ms-md-auto me-4">
-                <a class="nav-link me-3 mt-2" href="#" style="color: white;">Iniciar Sesión</a>
+                <a class="nav-link me-3 mt-2" href="./login.php" style="color: white;">Iniciar Sesión</a>
                 <button type="button" class="btn text-white" style="background-color: #9333EA;">Unete Ahora</button>
             </nav>
         </div>
