@@ -12,7 +12,7 @@ body {
   background-color: #FFFFFF;
 }
 p{
-  font-family: 'Poppins', 'Roboto';
+  font-family: Poppins, Roboto;
 }
 .form-signin {
   max-width: 330px;
