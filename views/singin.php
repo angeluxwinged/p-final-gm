@@ -43,7 +43,7 @@
                     <label for="floatingPassword">Confirmar Contraseña</label>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" style="background-color: #7034E4;" type="submit" name="enviarSingin">Registrarse</button>
-                <a href="" style="color: #7034E4;"><p class="mt-5 mb-3 text-body-secondary" style="color: #7034E4;">¿Ya tienes una cuenta?</p></a>
+                <a href="./login.php" style="color: #7034E4;"><p class="mt-5 mb-3 text-body-secondary" style="color: #7034E4;">¿Ya tienes una cuenta?</p></a>
             </form>
         </div>
     </main>

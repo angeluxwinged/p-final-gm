@@ -1,53 +1,52 @@
 <?php 
-	// //Indica que utilizaremos la conexion con la base de datos creada en conexion.php
-	// include ('../conn/conexion.php');
+	error_reporting(0);
 
-	// //esta condicional se ejecuta cuando el boton submit 'enviarLogin' es oprimido
-	// if (isset($_POST['enviarLogin'])) {
+    include ('../src/conn/conexion.php');
 
-	// //Datos a introducir por el laboratorista
-	// $nombreAdmin = $_POST['nombreAdmin'];
-	// $claveAdmin = $_POST['claveAdmin'];
+	if (isset($_POST['enviarLogin'])) {
 
-	// if (strlen($nombreAdmin) >= 1 && strlen($claveAdmin) >= 1) {
+	//variables del form
+	$correo = $_POST['email'];
+	$pass = $_POST['password'];
 
-	// $consulta = "SELECT * FROM laboratorista";
-	// $resultado = mysqli_query($conectar, $consulta);
-	// if($resultado){
-	// 	//Introduce los resultados de la consulta en variables
-	// 	while($row = $resultado->fetch_array()){
-	// 		$usuario = $row['usuario'];
-	// 		$clave = $row['clave'];
+	if (strlen($correo) >= 1 && strlen($pass) >= 1) {
 
-	// 		if ($usuario == $nombreAdmin && $clave == $claveAdmin) {
+	$consulta = "SELECT * FROM usuario";
+	$resultado = mysqli_query($conectar, $consulta);
+	if($resultado){
+		//introduce los resultados de la consulta en variables
+		while($row = $resultado->fetch_array()){
+			$sqlCorreo = $row['correo'];
+			$sqlPass = $row['contraseña'];
+            $sqlUser = $row['nombreUsuario'];
 
-	// 			//Redirecciona al usuario a la pagina de administrador
-    //             ?><script>
-    //             var nombreAdmin = "<?php echo $nombreAdmin; ?>";
-    //             localStorage.clear();
-    //             localStorage.setItem("usuarioScienceLab", nombreAdmin);
-    //             location.href ='administracion.php';
-    //             </script>
-    //             <?php
-	// 		}
+			if ($sqlCorreo == $correo && $sqlPass == $pass) {
+				//redirecciona al usuario a la pagina de administrador
+                echo "<script>
+                var name = '$sqlUser';
+                localStorage.clear();
+                localStorage.setItem('usuarioColora', name);
+                location.href = '';
+            </script>";
+			}
             
-	// }if ($usuario != $nombreAdmin && $clave != $claveAdmin) {
-    //     echo "<script>
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Algo salió mal',
-    //         text: 'Verifica que el usuario o contraseña introducidos son correctos.'
-    //         })
-    //         </script>";
-    // }
-	// }}else{//Muestra al usuario un mensaje notificandole que ha habido un error al introducir los datos
-    //     echo "<script>
-    //     Swal.fire({
-    //         icon: 'error',
-    //         title: 'Algo salió mal',
-    //         text: 'Verifica que el usuario o contraseña introducidos son correctos.'
-    //         })
-    //         </script>";
-    //     }
-    // }
+	}if ($sqlCorreo != $correo && $sqlPass != $pass) {
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Algo salió mal',
+            text: 'Verifica que el correo o contraseña introducidos son correctos.'
+            })
+            </script>";
+    }
+	}}else{
+        echo "<script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Algo salió mal',
+            text: 'Verifica que el usuario o contraseña introducidos son correctos.'
+            })
+            </script>";
+        }
+    }
     ?>
