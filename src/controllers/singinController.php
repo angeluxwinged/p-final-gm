@@ -1,6 +1,6 @@
 <?php
-    error_reporting(0);
-
+	error_reporting(0);
+    session_start();
     include ('../src/conn/conexion.php');
 
     if (isset($_POST['enviarSingin'])) {
@@ -32,12 +32,8 @@
 
                     // accion realizada correctamente
                     if ($resultado) {
-                        echo "<script>
-                            var name = '$name';
-                            localStorage.clear();
-                            localStorage.setItem('usuarioColora', name);
-                            location.href = '';
-                        </script>";
+                        $_SESSION['usuario'] =  $name;
+                        header('Location: loged.php');
                     } else {
                         // eror al insertar el registro
                         echo "<script>
