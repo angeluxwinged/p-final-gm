@@ -1,6 +1,44 @@
 <?php
 	error_reporting(0);
   session_start();
+  include ('src/conn/conexion.php');
+
+  $username = $_SESSION['usuario'];
+  $proyectoName = $_SESSION['newProyecto'];
+
+  if (strlen($_SESSION['usuario']) < 1) {
+    header("Location: views/welcome.php");
+}
+
+  $sql = "SELECT idShape, tipo, color, x, y, ancho, alto, strokeColor, strokeWeight, x1, y1, x2, y2, texto, fontSize FROM figuras WHERE username = '$username' AND proyectoName = '$proyectoName'";
+  $result = $conectar->query($sql);
+
+  $shapes = array();
+
+  if ($result->num_rows > 0) {
+      while ($row = $result->fetch_assoc()) {
+          $shape = array(
+              "id" => $row["idShape"],
+              "type" => $row["tipo"],
+              "color" => $row["color"],
+              "x" => $row["x"],
+              "y" => $row["y"],
+              "width" => $row["ancho"],
+              "height" => $row["alto"],
+              "strokeColor" => $row["strokeColor"],
+              "strokeWeight" => $row["strokeWeight"],
+              "x1" => $row["x1"],
+              "y1" => $row["y1"],
+              "x2" => $row["x2"],
+              "y2" => $row["y2"],
+              "text" => $row["texto"],
+              "fontSize" => $row["fontSize"]
+          );
+
+          $shapes[] = $shape;
+      }
+  }
+  
 ?>
 
 <!DOCTYPE html>
@@ -14,6 +52,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.js"></script>
+	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
     
     <title>Corola</title>
 </head>
@@ -21,15 +62,26 @@
 <body>
   <div class="container-fluid px-0 container-canvas">
     <div class="row barTop d-flex align-items-center">
-      <div class="col-1 px-4">
-        <a href="pagina_destino.html">
+      <div class="col-4 px-4">
+        <a href="views/loged.php">
           <img src="img/logo.png" alt="Botón" />
         </a>
       </div>
-      <div class="col-11 text-center">
-      <label><?php echo $_SESSION['newProyecto']; ?></label>
+      <div class="col-4">
+        <div class="d-flex align-items-center justify-content-center">
+          <label><?php echo $proyectoName; ?></label>
+        </div>
       </div>
+      <div class="col-4">
+        <div class="d-flex justify-content-end px-2">
+          <button class="btnSave text-white" style="background-color: #9333EA" id="save-button">Guardar proyecto</button>
+        </div>
+            
+        </div>
+      </div>
+      <div>
     </div>
+    
     <div class="row">
       <div class="col-1 capas"></div>
 
@@ -45,9 +97,6 @@
       </div>
 
       <div class="col-3 p-4 mod-inputs">
-        <div>
-            <button id="save-button">Guardar</button>
-        </div>
         <div class="mostrar-color-Opaci">
           <label for="">Edición de figura</label>
           <div>
@@ -115,7 +164,7 @@
               <label for="texto">Texto:</label>
               <input type="text" id="texto" oninput="updateShapeText()" />
               <label for="fontSize">Tamaño:</label>
-              <input type="text" id="fontSize" onchange="updateFiguraTamano()">
+              <input type="number" id="fontSize" onchange="updateFiguraTamano()">
             </div>
           </div>
       </div>
@@ -236,8 +285,38 @@
     }
     }
   </script>
+  <script>
+  var shapesArray = <?php echo json_encode($shapes); ?>;
+</script>
 
+    <?php
+    include ('guardarFiguras.php');
+    ?>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js" integrity="sha512-3RlxD1bW34eFKPwj9gUXEWtdSMC59QqIqHnD8O/NoTwSJhgxRizdcFVQhUMFyTp5RwLTDL0Lbcqtl8b7bFAzog==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="sketch.js"></script>
 </body>
+
+<footer class="row" style="background: white; width: 100.6%;">
+    <div class="col d-flex">
+    <a href="#" class="d-flex fw-bold fs-4 text-dark mt-4 ms-5 link-body-emphasis text-decoration-none">
+    colora
+    </a>
+    <p class="reserved fixed-bottom ms-5">&copy; 2023 colora, Inc. All rights reserved.</p>
+    </div>
+    <div class="col mb-3"></div>
+    <div class="col mb-3">
+    <ul class="nav flex-column">
+        <li class="nav-item mb-2 mt-5"><a href="#" class="nav-link p-0 text-body-secondary">ACERCA DE NOSOTROS</a></li>
+        <li class="nav-item mb-2 mt-1"><a href="#" class="nav-link p-0 text-dark">Nosotros</a></li>
+    </ul>
+    </div>
+
+    <div class="col align-self-end pb-4">
+    <a href="" class="link-body-emphasis text-decoration-none"><i class="m-2 bi bi-youtube"></i></a>
+    <a href="" class="link-body-emphasis text-decoration-none"><i class="m-2 bi bi-facebook"></i></a>
+    <a href="" class="link-body-emphasis text-decoration-none"><i class="m-2 bi bi-twitter"></i></a>
+    <a href="" class="link-body-emphasis text-decoration-none"><i class="m-2 bi bi-instagram"></i></a>
+    <a href="" class="link-body-emphasis text-decoration-none"><i class="m-2 bi bi-linkedin"></i></a>
+    </div>
+</footer>
 </html>

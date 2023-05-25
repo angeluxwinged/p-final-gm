@@ -1,15 +1,20 @@
 let shapes = [];
 let selectedShape = null;
-let nextShapeId = 1;
+let nextShapeId = maxId;
 let currentShape = 'rectangle';
 let canvasWidth = document.getElementById('p5js-container').clientWidth;
 let canvasHeight = document.getElementById('p5js-container').clientHeight;
 let lastSelectedShape = null;
 let isCtrlPressed = false;
+console.log(maxId);
 
 function setup() {
   const canvas = createCanvas(windowWidth-300, windowHeight-150);
   canvas.parent('p5js-container');
+
+  shapes = shapesArray;
+  console.log(shapesArray);
+  console.log(shapes);
   
   // llama a los botones de las formas
   const rectButton = document.getElementById("rect-button");
@@ -73,7 +78,13 @@ function saveShapes() {
 
   xhr.onload = function () {
     if (xhr.status === 200) {
-      console.log("Figuras guardadas en la base de datos.");
+    Swal.fire({
+      icon: 'success',
+      title: 'Proyecto guardado',
+      showConfirmButton: false,
+      timer: 1000
+    
+    })
     } else {
       console.log("Error al guardar las figuras en la base de datos.");
     }
@@ -122,17 +133,12 @@ function draw() {
 
 function mousePressed() {
   // verifica si la figura existe
-  if (mouseX >= 0 && mouseX <= 0 + (canvasWidth) && mouseY >= 0 && mouseY <= 0 + (canvasHeight-105)) {
+  if (mouseX >= 0 && mouseX <= canvasWidth && mouseY >= 0 && mouseY <= canvasHeight - 105) {
+
   for (let shape of shapes) {
     if (shapeContainsPoint(shape, mouseX, mouseY)) {
       selectedShape = shape;
       lastSelectedShape = selectedShape;
-
-      if (selectedShape.type === "line") {
-        selectedSegment = selectedShape;
-      } else {
-        selectedSegment = null;
-      }
       return;
     }
   }
@@ -194,12 +200,12 @@ function mouseDragged() {
       selectedShape.x2 = mouseX;
       selectedShape.y2 = mouseY;
     } else {
-      const dx = mouseX - selectedShape.x1;
-      const dy = mouseY - selectedShape.y1;
-      selectedShape.x1 += dx;
-      selectedShape.y1 += dy;
-      selectedShape.x2 += dx;
-      selectedShape.y2 += dy;
+      const dx = mouseX + selectedShape.width/2;
+      const dy = mouseY + selectedShape.width/2;
+      selectedShape.x1 = mouseX;
+      selectedShape.y1 = mouseY;
+      selectedShape.x2 = dx;
+      selectedShape.y2 = dy;
     }
   } else if (selectedShape && selectedShape.type === "rectangle")  {
     let coordenadasLine = document.getElementsByClassName('coordenadas-lineas');
@@ -324,12 +330,7 @@ function shapeContainsPoint(shape, x, y) {
   if (shape.type === 'ellipse') {
     return dist(x, y, shape.x, shape.y) <= shape.width / 2;
   } else if (shape.type === 'rectangle') {
-    return (
-      x >= shape.x &&
-      x <= shape.x + shape.width &&
-      y >= shape.y &&
-      y <= shape.y + shape.height
-    );
+    return dist(x, y, shape.x, shape.y) <= shape.width;
   } else if (shape.type === 'line') {
     const d1 = dist(x, y, shape.x1, shape.y1);
     const d2 = dist(x, y, shape.x2, shape.y2);
@@ -337,12 +338,7 @@ function shapeContainsPoint(shape, x, y) {
     const buffer = 0.5;
     return d1 + d2 >= lineLength - buffer && d1 + d2 <= lineLength + buffer;
   } else if (shape.type === 'text') {
-    return (
-      x >= shape.x &&
-      x <= shape.x + textWidth(shape.text) &&
-      y >= shape.y - textAscent() &&
-      y <= shape.y + textDescent()
-    );
+    return dist(x, y, shape.x, shape.y) <= shape.width;
   }
   return false;
 }
@@ -392,7 +388,6 @@ function updateShapeCoordinates() {
     const xValue = document.getElementById("shape-x").value;
     const yValue = document.getElementById("shape-y").value;
 
-    // Actualiza las coordenadas de la forma sin limitaciones
     lastSelectedShape.x = parseInt(xValue);
     lastSelectedShape.y = parseInt(yValue);
   }
@@ -417,10 +412,9 @@ function updateShapeText() {
 
 function updateFiguraTamano() {
   if (lastSelectedShape) {
-    const fontSize = document.getElementById("fontSize").value;
+    const fontSizeU = document.getElementById("fontSize").value;
 
-    lastSelectedShape.fontSize = parseInt(fontSize);
-    lastSelectedShape.fontSize = parseInt(fontSize);
+    lastSelectedShape.fontSize = parseInt(fontSizeU);
   }
 }
 
@@ -459,3 +453,4 @@ function handleKeyUp(event) {
     isCtrlPressed = false;
   }
 }
+
