@@ -139,6 +139,11 @@ function mousePressed() {
     if (shapeContainsPoint(shape, mouseX, mouseY)) {
       selectedShape = shape;
       lastSelectedShape = selectedShape;
+      if (selectedShape.type === "line") {
+        selectedSegment = selectedShape;
+      } else {
+        selectedSegment = null;
+      }
       return;
     }
   }
