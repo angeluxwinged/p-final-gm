@@ -1,0 +1,36 @@
+html,
+body {
+  height: 100%;
+  font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #FFFFFF;
+}
+p{
+  font-family: Poppins, Roboto;
+}
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border: 2px solid #E5E7EB;
+  border-radius: 8px;
+}

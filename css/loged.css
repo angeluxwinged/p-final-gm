@@ -1,0 +1,39 @@
+body {
+    background: #0F172A !important;
+    color: #fff !important;
+    font-family: Roboto, Arial, Helvetica, sans-serif;
+}
+
+.barTop{
+    background-color: rgb(44, 44, 44);
+    height: 40px;
+    border-bottom: 1px solid #fff;
+}
+
+.sideBar h3{
+    margin-top: 15px !important;
+}
+
+.sideBar h3, h4{
+    margin-bottom: 25px !important;
+}
+
+.sideBar input{
+    border-radius: 8px;
+}
+
+.reserved{
+    color: black;
+}
+
+.sideBar button, input{
+    margin-bottom: 15px !important;
+}
+
+footer{
+    height: 180px;
+}
+
+.container-fluid{
+    margin-bottom: 30px;
+}
