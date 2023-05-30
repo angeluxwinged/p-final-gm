@@ -9,11 +9,8 @@
     <link rel="stylesheet" href="../css/login.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-<<<<<<< HEAD
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.1.2/dist/sweetalert2.min.css">
-=======
->>>>>>> dev
     <title>Registrarse</title>
 </head>
 
@@ -25,16 +22,11 @@
             </div>
         </div>
         <div class="row">
-<<<<<<< HEAD
             <form method="post">
-=======
-            <form>
->>>>>>> dev
                 <div class="row mb-4" style="color: #421C86;">
                     <p class="fs-1 fw-normal">¿Listo para Empezar?</p>
                 </div>
                 <div class="form-floating">
-<<<<<<< HEAD
                     <input type="name" class="form-control" id="name" name="name" placeholder="Nombre">
                     <label for="floatingInput">Nombre</label>
                 </div>
@@ -59,28 +51,6 @@
     <?php
 	include "../src/controllers/singinController.php";
 	?>
-=======
-                    <input type="name" class="form-control" id="name" placeholder="Nombre">
-                    <label for="floatingInput">Nombre</label>
-                </div>
-                <div class="form-floating">
-                    <input type="email" class="form-control" id="emial" placeholder="name@example.com">
-                    <label for="floatingInput">Correo Electronico</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="password" placeholder="Password">
-                    <label for="floatingPassword">Contraseña</label>
-                </div>
-                <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="password.2" placeholder="Password">
-                    <label for="floatingPassword">Confirmar Contraseña</label>
-                </div>
-                <button class="w-100 btn btn-lg btn-primary" style="background-color: #7034E4;" type="submit">Registrarse</button>
-                <a href="" style="color: #7034E4;"><p class="mt-5 mb-3 text-body-secondary" style="color: #7034E4;">¿Ya tienes una cuenta?</p></a>
-            </form>
-        </div>
-    </main>
->>>>>>> dev
 </body>
 
 </html>

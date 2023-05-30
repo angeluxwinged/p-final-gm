@@ -199,6 +199,17 @@
     for (let i = 0; i < bordes.length; i++) {
       bordes[i].style.display = 'block';
     }
+
+    // pinta y desactiva borde de los botones
+    var rectBtn = document.getElementById("rect-button");
+    var ellipseBtn = document.getElementById("ellipse-button");
+    var lineBtn = document.getElementById("line-button");
+    var textBtn = document.getElementById("text-button");
+  
+    rectBtn.style.border = "1px solid #fff";
+    ellipseBtn.style.border = "none";
+    lineBtn.style.border = "none";
+    textBtn.style.border = "none";
     }
 
     function toggleEllipse() {
@@ -227,6 +238,17 @@
     for (let i = 0; i < bordes.length; i++) {
       bordes[i].style.display = 'block';
     }
+    
+    // pinta y desactiva borde de los botones
+    var rectBtn = document.getElementById("rect-button");
+    var ellipseBtn = document.getElementById("ellipse-button");
+    var lineBtn = document.getElementById("line-button");
+    var textBtn = document.getElementById("text-button");
+  
+    rectBtn.style.border = "none";
+    ellipseBtn.style.border = "1px solid #fff";
+    lineBtn.style.border = "none";
+    textBtn.style.border = "none";
     }
 
     function toggleLine() {
@@ -255,6 +277,17 @@
     for (let i = 0; i < bordes.length; i++) {
       bordes[i].style.display = 'block';
     }
+
+    // pinta y desactiva borde de los botones
+    var rectBtn = document.getElementById("rect-button");
+    var ellipseBtn = document.getElementById("ellipse-button");
+    var lineBtn = document.getElementById("line-button");
+    var textBtn = document.getElementById("text-button");
+  
+    rectBtn.style.border = "none";
+    ellipseBtn.style.border = "none";
+    lineBtn.style.border = "1px solid #fff";
+    textBtn.style.border = "none";
     }
 
     function toggleText() {
@@ -283,11 +316,23 @@
     for (let i = 0; i < bordes.length; i++) {
       bordes[i].style.display = 'block';
     }
+
+    // pinta y desactiva borde de los botones
+    var rectBtn = document.getElementById("rect-button");
+    var ellipseBtn = document.getElementById("ellipse-button");
+    var lineBtn = document.getElementById("line-button");
+    var textBtn = document.getElementById("text-button");
+  
+    rectBtn.style.border = "none";
+    ellipseBtn.style.border = "none";
+    lineBtn.style.border = "none";
+    textBtn.style.border = "1px solid #fff";
     }
   </script>
+
   <script>
-  var shapesArray = <?php echo json_encode($shapes); ?>;
-</script>
+    var shapesArray = <?php echo json_encode($shapes); ?>;
+  </script>
 
     <?php
     include ('guardarFiguras.php');

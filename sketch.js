@@ -6,6 +6,7 @@ let canvasWidth = document.getElementById('p5js-container').clientWidth;
 let canvasHeight = document.getElementById('p5js-container').clientHeight;
 let lastSelectedShape = null;
 let isCtrlPressed = false;
+let firstTime = false;
 console.log(maxId);
 
 function setup() {
@@ -155,8 +156,8 @@ function mousePressed() {
       color: '#0F0F0F',
       x: mouseX,
       y: mouseY,
-      width: 100,
-      height: 100,
+      width: 10,
+      height: 10,
       strokeColor: '#DEDEDE',
       strokeWeight: 2,
       x1: mouseX,
@@ -169,6 +170,7 @@ function mousePressed() {
     shapes.push(newShape);
     selectedShape = newShape;
     lastSelectedShape = newShape;
+    firstTime = true;
   }
 }
 
@@ -200,8 +202,14 @@ function mouseDragged() {
         bordes[i].style.display = 'block';
       }
 
+      if(firstTime){
+      selectedShape.width = 200;
+      selectedShape.height = 200;
+      selectedShape.x2 = mouseX;
+      selectedShape.y2 = mouseY;
+    }else{
     // ctrl
-    if (isCtrlPressed) {
+      if (isCtrlPressed) {
       selectedShape.x2 = mouseX;
       selectedShape.y2 = mouseY;
     } else {
@@ -212,6 +220,8 @@ function mouseDragged() {
       selectedShape.x2 = dx;
       selectedShape.y2 = dy;
     }
+    }
+  
   } else if (selectedShape && selectedShape.type === "rectangle")  {
     let coordenadasLine = document.getElementsByClassName('coordenadas-lineas');
     let coordenadas = document.getElementsByClassName('mostrar-coordenadas');
@@ -238,8 +248,14 @@ function mouseDragged() {
     for (let i = 0; i < bordes.length; i++) {
       bordes[i].style.display = 'block';
     }
-    
-    // ctrl
+
+  if(firstTime){
+      const dx = mouseX - selectedShape.x;
+      const dy = mouseY - selectedShape.y;
+      selectedShape.width = dx;
+      selectedShape.height = dy;
+  }else{
+     // ctrl
     if (isCtrlPressed) {
       const dx = mouseX - selectedShape.x;
       const dy = mouseY - selectedShape.y;
@@ -249,6 +265,9 @@ function mouseDragged() {
       selectedShape.x = mouseX;
       selectedShape.y = mouseY;
     }
+  }
+    
+  
   } else if (selectedShape && selectedShape.type === "ellipse")  {
     let coordenadasLine = document.getElementsByClassName('coordenadas-lineas');
     let coordenadas = document.getElementsByClassName('mostrar-coordenadas');
@@ -276,7 +295,13 @@ function mouseDragged() {
       bordes[i].style.display = 'block';
     }
 
-    // ctrl
+    if(firstTime){
+      const dx = mouseX - selectedShape.x;
+      const dy = mouseY - selectedShape.y;
+      selectedShape.width = dx;
+      selectedShape.height = dy;
+  }else{
+     // ctrl
     if (isCtrlPressed) {
       const dx = mouseX - selectedShape.x;
       const dy = mouseY - selectedShape.y;
@@ -286,6 +311,8 @@ function mouseDragged() {
       selectedShape.x = mouseX;
       selectedShape.y = mouseY;
     }
+  }
+  
   } else if (selectedShape && selectedShape.type === "text")  {
     let coordenadasLine = document.getElementsByClassName('coordenadas-lineas');
     let coordenadas = document.getElementsByClassName('mostrar-coordenadas');
@@ -320,6 +347,7 @@ function mouseDragged() {
 
 function mouseReleased() {
   selectedShape = null;
+  firstTime = false;
 }
 
 function keyPressed() {
@@ -335,7 +363,7 @@ function shapeContainsPoint(shape, x, y) {
   if (shape.type === 'ellipse') {
     return dist(x, y, shape.x, shape.y) <= shape.width / 2;
   } else if (shape.type === 'rectangle') {
-    return dist(x, y, shape.x, shape.y) <= shape.width;
+    return dist(x, y, shape.x, shape.y) <= shape.width / 2;
   } else if (shape.type === 'line') {
     const d1 = dist(x, y, shape.x1, shape.y1);
     const d2 = dist(x, y, shape.x2, shape.y2);
